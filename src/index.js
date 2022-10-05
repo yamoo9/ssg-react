@@ -1,20 +1,11 @@
-import { getElement as $, css, getRandomMinMax, loop } from './utils';
+import { createElement as h, StrictMode } from 'react';
+import { createRoot } from 'react-dom';
 
-const bodyElement = $('body');
+const container = document.getElementById('root');
 
-// console.log(bodyElement);
+const reactDomRoot = createRoot(container);
 
-const styleMap = {
-  'min-height': '100vh',
-  background: 'salmon',
-};
-
-Object.entries(styleMap).forEach(([key, value]) => {
-  css(bodyElement, key, value);
-});
-
-// function rollDice(n = 6) {
-//   return getRandomMinMax(1, n);
-// }
-
-// loop(() => console.log(rollDice(12)), 120);
+// without JSX
+reactDomRoot.render(
+  h(StrictMode, null, h('div', { className: 'App' }, 'React App'))
+);
