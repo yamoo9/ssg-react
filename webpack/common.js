@@ -7,9 +7,20 @@ const path = require('path');
 
 const commonConfig = {
   target: 'web',
-  // entry: '../src/index.js'
   entry: {
-    bundle: path.resolve('src/index.js'),
+    bundle: path.resolve('src/index.jsx'),
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.wasm'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/i,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+    ],
   },
 };
 
