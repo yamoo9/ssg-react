@@ -1,7 +1,20 @@
-import { getRandomMinMax, loop } from './utils';
+import { getElement as $, css, getRandomMinMax, loop } from './utils';
 
-function rollDice() {
-  return getRandomMinMax(1, 6);
-}
+const bodyElement = $('body');
 
-loop(() => console.log(rollDice()), 20);
+// console.log(bodyElement);
+
+const styleMap = {
+  'min-height': '100vh',
+  background: 'salmon',
+};
+
+Object.entries(styleMap).forEach(([key, value]) => {
+  css(bodyElement, key, value);
+});
+
+// function rollDice(n = 6) {
+//   return getRandomMinMax(1, n);
+// }
+
+// loop(() => console.log(rollDice(12)), 120);
