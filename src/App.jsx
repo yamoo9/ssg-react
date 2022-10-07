@@ -1,12 +1,16 @@
-import { Button } from './components/Button';
+import { Button } from './components';
 
 const App = () => (
   <div className="App" lang="en">
-    <h1>React App</h1>
-    <Button type="button" label="헤드라인 보기" />
-    <Button type="button" label="디스크립션 보기" />
-    <Button type="button" label="리스트 보기" />
-    <Button type="button" label="리스트 감추기" />
+    <h1>React 컴포넌트 설계</h1>
+    <Button
+      onClick={() => console.log('저장')}
+      onMouseEnter={() => console.log('호버 인')}
+      onMouseLeave={() => console.log('호버 아웃')}
+    >
+      저장
+    </Button>
+    <Button onClick={() => console.log('취소')}>취소</Button>
   </div>
 );
 

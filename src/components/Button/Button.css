@@ -1,0 +1,13 @@
+.Button {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  padding: 0.57em 0.857em;
+  line-height: 1;
+  font-size: 1.4rem; /* root em */
+  font-weight: 600;
+  background: #111111;
+  color: #ffffff;
+}
