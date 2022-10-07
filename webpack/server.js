@@ -1,20 +1,20 @@
-const path = require('path');
+const { merge } = require('webpack-merge');
+const devConfig = require('./dev');
 
-const serverConfig = {
-  // static: ['public'],
-  static: {
-    directory: path.resolve('public'),
+const serverConfig = merge(devConfig, {
+  devServer: {
+    host: 'localhost',
+    port: 3000,
+    static: ['public'],
+    hot: true,
+    open: false,
+    compress: true,
+    liveReload: true,
+    historyApiFallback: true,
+    client: {
+      overlay: true,
+    },
   },
-  client: {
-    overlay: true,
-  },
-  hot: true,
-  compress: true,
-  liveReload: true,
-  historyApiFallback: true,
-  host: 'localhost',
-  port: 3000,
-  open: false,
-};
+});
 
 module.exports = serverConfig;

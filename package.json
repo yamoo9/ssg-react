@@ -5,7 +5,9 @@
   "description": "React 프레임워크 개발에 적합하지 않은 웹 환경을 벗어나 Node.js 환경에서 애플리케이션을 개발할 수 있는 환경 직접 구성하는 방법을 학습합니다.",
   "scripts": {
     "start": "npm run dev -- --open",
-    "dev": "webpack serve --node-env development -c ./webpack/dev.js",
+    "dev": "npm run server",
+    "bundle": "webpack --node-env development -c ./webpack/dev.js",
+    "server": "webpack serve --node-env development -c ./webpack/server.js",
     "build": "webpack build --node-env production -c ./webpack/build.js"
   },
   "devDependencies": {
