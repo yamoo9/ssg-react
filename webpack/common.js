@@ -12,9 +12,18 @@ const commonConfig = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.wasm'],
+    alias: {
+      assets: path.resolve('src/assets'),
+      styles: path.resolve('src/styles'),
+      components: path.resolve('src/components'),
+    },
   },
   module: {
     rules: [
+      {
+        test: /\.(jpe?g|gif|svg|webp|png|bmp)$/i,
+        type: 'asset/resource',
+      },
       {
         test: /\.jsx?$/i,
         exclude: /node_modules/,

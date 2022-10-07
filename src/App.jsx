@@ -1,4 +1,4 @@
-import { Button } from './components';
+import { Button, IconButton } from 'components';
 
 const App = () => (
   <div className="App" lang="en">
@@ -10,7 +10,7 @@ const App = () => (
     >
       저장
     </Button>
-    <Button onClick={() => console.log('취소')}>취소</Button>
+    <IconButton onClick={() => console.log('취소')}>취소</IconButton>
   </div>
 );
 
