@@ -5,10 +5,7 @@ import App from './App';
 
 const container = document.getElementById('root');
 
-const reactDomRoot = createRoot(container);
-
-// without JSX
-reactDomRoot.render(
+createRoot(container).render(
   <StrictMode>
     <App />
   </StrictMode>
