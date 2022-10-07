@@ -30,14 +30,14 @@
       ">0.2% in KR",
       "not dead",
       "not op_mini all",
-      "ie11"
+      "ie 11"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version",
       "last 1 edge version",
-      "ie11"
+      "ie 11"
     ]
   },
   "devDependencies": {
