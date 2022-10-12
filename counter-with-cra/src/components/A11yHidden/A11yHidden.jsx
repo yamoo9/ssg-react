@@ -24,6 +24,5 @@ A11yHidden.defaultProps = {
 };
 
 A11yHidden.propTypes = {
-  // 유효성 검사(validation function check)
   className: PropTypes.string,
 };
