@@ -1,4 +1,4 @@
-.A11yHidden {
+.element {
   overflow: hidden;
   position: absolute;
   clip: rect(0, 0, 0, 0);

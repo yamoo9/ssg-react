@@ -1,18 +1,29 @@
-import React from 'react';
+import classes from './A11yHidden.module.css';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
-export const A11yHidden = ({ as: ComponentName, children, className }) => {
-  let combinedClasses = `A11yHidden ${className}`.trim();
-  // React API
-  // return React.createElement(as, {
-  //   className: combinedClasses,
-  //   'data-testid': 'a11y-hidden'
-  // }, children);
-
-  // JSX
-  return <ComponentName className={combinedClasses} data-testid="a11y-hidden">{children}</ComponentName>;
+export const A11yHidden = ({
+  as: ComponentName,
+  children,
+  className,
+  ...restProps
+}) => {
+  return (
+    <ComponentName
+      className={classNames(classes.element, className)}
+      {...restProps}
+    >
+      {children}
+    </ComponentName>
+  );
 };
 
 A11yHidden.defaultProps = {
   as: 'span',
-  className: ''
-}
+  className: '',
+};
+
+A11yHidden.propTypes = {
+  // 유효성 검사(validation function check)
+  className: PropTypes.string,
+};

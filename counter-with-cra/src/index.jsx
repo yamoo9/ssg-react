@@ -2,18 +2,18 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
 import { StrictMode } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'styles/global.css';
 import App from 'app/App';
 
-render(
+// v18 API
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
       <App />
     </Router>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 );
 
 // dynamic import
