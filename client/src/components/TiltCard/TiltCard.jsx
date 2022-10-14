@@ -1,8 +1,6 @@
-/* eslint-disable */
-
 import './TiltCard.css';
-import React from 'react';
-// import VanillaTilt from 'vanilla-tilt'
+import { useRef, useEffect } from 'react';
+import VanillaTilt from 'vanilla-tilt';
 
 /* -------------------------------------------------------------------------- */
 // 참고
@@ -21,26 +19,35 @@ const tiltOptions = {
   'max-glare': 0.25,
 };
 
-export class TiltCard extends React.Component {
-  static defaultProps = {
-    options: tiltOptions,
-  };
+export function TiltCard({ options, children }) {
+  const cardRef = useRef(null); // { current }
+  useEffect(() => {
+    VanillaTilt.init(cardRef.current, { ...options, ...tiltOptions });
+  }, [options]);
 
-  // DOM 요소 참조를 목적으로 Ref를 생성합니다.
-  // → 코드 작성
+  const timeRef = useRef(0);
+  useEffect(
+    /* callback */
+    () => {
+      let clearIntervalId = setInterval(() => {
+        timeRef.current += 1;
+        console.log(timeRef.current);
+      }, 1000);
 
-  // 최초 마운트 시점 이후 처리할 로직을 작성합니다.
-  // → 코드 작성
+      // cleanup
+      return () => clearInterval(clearIntervalId);
+    }, 
+    /* dependencies */
+    []
+  );
 
-  // 마운트 해제 직전에 처리할 로직을 작성합니다.
-  // → 코드 작성
-
-  render() {
-    const { children } = this.props;
-
-    return (
-      // 생성된 Ref를 참조하도록 설정합니다.
-      <div className="tiltCard">{children}</div>
-    );
-  }
+  return (
+    <div ref={cardRef} className="tiltCard">
+      ({timeRef.current}) {children}
+    </div>
+  );
 }
+
+TiltCard.defaultProps = {
+  options: tiltOptions,
+};
