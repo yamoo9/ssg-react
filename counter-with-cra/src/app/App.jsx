@@ -7,53 +7,49 @@ import Home from 'pages/Home';
 import Products from 'pages/Products';
 import CounterPage from 'pages/CounterPage';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+// memoization
 
-    this.state = {
-      count: 10,
-      min: 0,
-      max: 100,
-      step: 2,
-    };
+function App(props) {
+  // 함수 컴포넌트의 상태는 어떻게 관리?
+  const [count, setCount] = React.useState(10);
+  const [step] = React.useState(2);
+  // const [min] = React.useState(0);
+  // const [max] = React.useState(100);
 
-    this.updateState = this.updateState.bind(this);
-  }
+  // 함수 컴포넌트의 함수는 어떻게 관리?
+  const updateState = React.useCallback(
+    (e) => {
+      let stepValue = 1;
 
-  updateState(e) {
-    let stepValue = 1;
+      if (e.target.textContent.includes('-')) {
+        stepValue = -1;
+      }
 
-    if (e.target.textContent.includes('-')) {
-      stepValue = -1;
-    }
+      // setCount(newValue)
+      // setCount((oldValue) => { return oldValue + step })
 
-    this.setState({
-      count: this.state.count + this.state.step * stepValue,
-    });
-  }
+      // setCount(count + step * stepValue);
 
-  render() {
-    return (
-      <div className="App">
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route
-              path="/counter"
-              element={
-                <CounterPage
-                  count={this.state.count}
-                  onUpdate={this.updateState}
-                />
-              }
-            />
-          </Routes>
-        </Layout>
-      </div>
-    );
-  }
+      setCount((oldCount) => oldCount + step * stepValue);
+    },
+    // [count, step]
+    [step]
+  );
+
+  return (
+    <div className="App">
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route
+            path="/counter"
+            element={<CounterPage count={count} onUpdate={updateState} />}
+          />
+        </Routes>
+      </Layout>
+    </div>
+  );
 }
 
 export default App;
