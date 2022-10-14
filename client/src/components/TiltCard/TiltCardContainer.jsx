@@ -3,43 +3,24 @@ import React, { useState, useEffect } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { TiltCard } from 'components';
 
-const initialCards = [
-  { id: 'card-vanilla', text: 'Vanilla Tilt Card' },
-  { id: 'card-jquery', text: 'jQuery Tilt Card' },
-  { id: 'card-react', text: 'React Tilt Card' },
-];
-
 export function TiltCardContainer({ cards: userDefinedCards }) {
-  const [state, setState] = useState(() => ({
-    dummy: false,
-    cards: initialCards,
-  }));
+  const [cards, setCards] = useState(userDefinedCards);
 
   useEffect(() => {
-    // DOM 요소 접근/조작
-    // 네트워크 통신 요청/응답
     fetch('/api/cards')
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error.message));
-
-    // componentDidMount
   }, []);
 
   const handleRemoveCard = (id) => {
-    // setCards((oldCards) => oldCards.filter((card) => card.id !== id));
-    setState((oldState) => {
-      return {
-        ...oldState,
-        cards: oldState.cards.filter((card) => card.id !== id),
-      };
-    });
+    setCards((oldCards) => oldCards.filter((card) => card.id !== id));
   };
 
   return (
     <div className="tiltCardContainer" lang="en">
       <div className="tiltCardContainer__buttonGroup">
-        {state.cards.map(({ id, text }) => (
+        {cards.map(({ id, text }) => (
           <button
             key={id}
             type="button"
@@ -51,7 +32,7 @@ export function TiltCardContainer({ cards: userDefinedCards }) {
         ))}
       </div>
       <ul className="tiltCardContainer__list">
-        {state.cards.map((card) => (
+        {cards.map((card) => (
           <li key={card.id}>
             <TiltCard
               card={card}
@@ -66,11 +47,15 @@ export function TiltCardContainer({ cards: userDefinedCards }) {
   );
 }
 
+TiltCardContainer.defaultProps = {
+  cards: [],
+};
+
 TiltCardContainer.propTypes = {
   cards: arrayOf(
     shape({
       id: string.isRequired,
       text: string.isRequired,
     })
-  ).isRequired,
+  ),
 };
