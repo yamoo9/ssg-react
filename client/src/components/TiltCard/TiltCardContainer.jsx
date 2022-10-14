@@ -1,21 +1,27 @@
 import './TiltCardContainer.css';
-import React, { useState, useEffect } from 'react';
+import { useFetch } from 'hooks';
 import { arrayOf, shape, string } from 'prop-types';
 import { TiltCard } from 'components';
 
 export function TiltCardContainer({ cards: userDefinedCards }) {
-  const [cards, setCards] = useState(userDefinedCards);
-
-  useEffect(() => {
-    fetch('/api/cards')
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error.message));
-  }, []);
+  const {
+    loading,
+    error,
+    data: cards,
+    setData: setCards,
+  } = useFetch('/api/cards');
 
   const handleRemoveCard = (id) => {
     setCards((oldCards) => oldCards.filter((card) => card.id !== id));
   };
+
+  if (loading) {
+    return <div role="alert">데이터 로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div role="alert">오류 발생: {error.message}</div>;
+  }
 
   return (
     <div className="tiltCardContainer" lang="en">
