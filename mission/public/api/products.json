@@ -1,0 +1,26 @@
+[
+  {
+    "id": "milk",
+    "photo": "http://item.ssgcdn.com/22/52/99/item/1000039995222_i1_180.jpg",
+    "name": "1A 우유 900mL",
+    "price": 1880,
+    "amount": 1,
+    "maxAmount": 0
+  },
+  {
+    "id": "bean-sprouts",
+    "photo": "http://item.ssgcdn.com/81/94/81/item/1000016819481_i1_180.jpg",
+    "name": "맛있는 콩나물 500g",
+    "price": 1280,
+    "amount": 1,
+    "maxAmount": 0
+  },
+  {
+    "id": "tofu",
+    "photo": "http://item.ssgcdn.com/76/94/81/item/1000016819476_i1_232.jpg",
+    "name": "고소한 두부 1kg",
+    "price": 2280,
+    "amount": 1,
+    "maxAmount": 2
+  }
+]
