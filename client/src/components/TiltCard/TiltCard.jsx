@@ -1,6 +1,7 @@
 import './TiltCard.css';
 import { useRef, useEffect } from 'react';
 import VanillaTilt from 'vanilla-tilt';
+import { useTheme } from 'contexts/theme';
 
 /* -------------------------------------------------------------------------- */
 // 참고
@@ -20,6 +21,17 @@ const tiltOptions = {
 };
 
 export function TiltCard({ options, children }) {
+  // 테마 정보(값) 가져오기
+  const {
+    theme: {
+      values: { forground, background },
+    },
+  } = useTheme();
+
+  console.log(forground, background);
+
+  /* -------------------------------------------------------------------------- */
+
   const cardRef = useRef(null); // { current }
   useEffect(() => {
     VanillaTilt.init(cardRef.current, { ...options, ...tiltOptions });
@@ -36,13 +48,17 @@ export function TiltCard({ options, children }) {
 
       // cleanup
       return () => clearInterval(clearIntervalId);
-    }, 
+    },
     /* dependencies */
     []
   );
 
   return (
-    <div ref={cardRef} className="tiltCard">
+    <div
+      ref={cardRef}
+      className="tiltCard"
+      style={{ color: forground, background }}
+    >
       ({timeRef.current}) {children}
     </div>
   );
@@ -51,3 +67,5 @@ export function TiltCard({ options, children }) {
 TiltCard.defaultProps = {
   options: tiltOptions,
 };
+
+// export const TiltCardHOC = withTheme(TiltCard);

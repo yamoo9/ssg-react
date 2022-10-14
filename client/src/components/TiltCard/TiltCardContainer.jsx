@@ -1,7 +1,8 @@
 import './TiltCardContainer.css';
+import { useCallback, useMemo } from 'react';
 import { useFetch } from 'hooks';
 import { arrayOf, shape, string } from 'prop-types';
-import { TiltCard } from 'components';
+import { Button, TiltCard } from 'components';
 
 export function TiltCardContainer({ cards: userDefinedCards }) {
   const {
@@ -11,9 +12,19 @@ export function TiltCardContainer({ cards: userDefinedCards }) {
     setData: setCards,
   } = useFetch('/api/cards');
 
-  const handleRemoveCard = (id) => {
-    setCards((oldCards) => oldCards.filter((card) => card.id !== id));
-  };
+  // const handleRemoveCard1 = useMemo(
+  //   () => (id) => {
+  //     setCards((oldCards) => oldCards.filter((card) => card.id !== id));
+  //   },
+  //   [setCards]
+  // );
+
+  const handleRemoveCard = useCallback(
+    (id) => {
+      setCards((oldCards) => oldCards.filter((card) => card.id !== id));
+    },
+    [setCards]
+  );
 
   if (loading) {
     return <div role="alert">데이터 로딩 중...</div>;
@@ -27,14 +38,14 @@ export function TiltCardContainer({ cards: userDefinedCards }) {
     <div className="tiltCardContainer" lang="en">
       <div className="tiltCardContainer__buttonGroup">
         {cards.map(({ id, text }) => (
-          <button
+          <Button
             key={id}
             type="button"
             className="tiltCardContainer__button"
-            onClick={() => handleRemoveCard(id)}
+            onClick={handleRemoveCard.bind(null, id)}
           >
             {text} 제거
-          </button>
+          </Button>
         ))}
       </div>
       <ul className="tiltCardContainer__list">

@@ -1,13 +1,16 @@
 // import { useFetch } from 'hooks';
 import { ErrorBoundary, TiltCardContainer } from 'components';
+import Container from 'components/Container';
+import { ThemeProvider } from 'contexts/theme';
 
 export default function App() {
-  // const { data: navigation } = useFetch('api/ediya/navigation');
-
   return (
     <div className="container">
       <ErrorBoundary>
-        <TiltCardContainer />
+        <ThemeProvider>
+          <TiltCardContainer />
+          <Container />
+        </ThemeProvider>
       </ErrorBoundary>
     </div>
   );
