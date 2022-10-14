@@ -1,5 +1,5 @@
 import './TiltCardContainer.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { TiltCard } from 'components';
 
@@ -10,16 +10,36 @@ const initialCards = [
 ];
 
 export function TiltCardContainer({ cards: userDefinedCards }) {
-  const [cards, setCards] = useState(userDefinedCards ?? initialCards);
+  const [state, setState] = useState(() => ({
+    dummy: false,
+    cards: initialCards,
+  }));
+
+  useEffect(() => {
+    // DOM 요소 접근/조작
+    // 네트워크 통신 요청/응답
+    fetch('/api/cards')
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error.message));
+
+    // componentDidMount
+  }, []);
 
   const handleRemoveCard = (id) => {
-    setCards((oldCards) => oldCards.filter((card) => card.id !== id));
+    // setCards((oldCards) => oldCards.filter((card) => card.id !== id));
+    setState((oldState) => {
+      return {
+        ...oldState,
+        cards: oldState.cards.filter((card) => card.id !== id),
+      };
+    });
   };
 
   return (
     <div className="tiltCardContainer" lang="en">
       <div className="tiltCardContainer__buttonGroup">
-        {cards.map(({ id, text }) => (
+        {state.cards.map(({ id, text }) => (
           <button
             key={id}
             type="button"
@@ -31,7 +51,7 @@ export function TiltCardContainer({ cards: userDefinedCards }) {
         ))}
       </div>
       <ul className="tiltCardContainer__list">
-        {cards.map((card) => (
+        {state.cards.map((card) => (
           <li key={card.id}>
             <TiltCard
               card={card}
